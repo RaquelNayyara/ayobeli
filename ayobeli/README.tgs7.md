@@ -15,4 +15,23 @@ Mengimplementasikan metode createState: Stateful widget memiliki metode createSt
 
 2. Sebutkan seluruh widget yang kamu gunakan untuk menyelesaikan tugas ini dan jelaskan fungsinya masing-masing.
 
+a. MaterialApp :  mengatur tema dan konfigurasi dasar aplikasi.
+b. Scaffold :  membuat tata letak dasar yang berisi AppBar dan body.
+c. AppBar : membuat bar dalam aplikasi.
+d. Column : mengatur tampilan secara vertikal dalam satu column
+e. Padding : menambahkan padding (mengatur jarak antara elemen satu dengan elemen lainnya)
+f. InkWell : membuat area yang responsif terhadap sentuhan pengguna dan menampilkan pesan "SnackBar" saat diklik.
+g. Container : mengelola tampilan (memberi margin dan padding).
+h. Text : menampilkan text.
+i. SnackBar : menampilkan pop-up kecil saat saat user menekan kartu item
+j. Icon : menampilkan ikon dengan warna dan ukuran tertentu
+
 3. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
+
+a. Mulailah dengan membuat proyek Flutter baru menggunakan perintah 'flutter create ayobeli'.
+b. Navigasikan ke direktori yang baru saja dibuat dengan menggunakan perintah 'cd'.
+c. Di dalam file menu.dart, tambahkan teks dan kartu untuk item yang akan dijual.
+d. Tetapkan jenis data untuk produk dengan menggunakan kelas InventItem, yang mencakup nama, ikon, dan warna.
+e. Ubah widget halaman dari stateful ke stateless, lalu modifikasi konstruktor dan tambahkan daftar produk.
+f. Selanjutnya, tampilkan kartu produk dan buat widget stateless baru bernama InventCard untuk menampilkan kartu item. Di dalam InventCard, gunakan InkWell untuk membuat area responsif terhadap interaksi pengguna.
+g. Ketika tombol ditekan, atur agar Snackbar muncul dengan pesan yang sesuai.
