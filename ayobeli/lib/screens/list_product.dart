@@ -1,9 +1,10 @@
+import 'dart:convert';
+
+import 'package:ayobeli/models/product.dart';
+import 'package:ayobeli/screens/item_detail.dart';
+import 'package:ayobeli/widgets/left_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:ayobeli/models/product.dart';
-import 'package:ayobeli/widgets/left_drawer.dart';
-import 'package:ayobeli/screens/item_detail.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
