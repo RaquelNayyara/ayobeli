@@ -1,30 +1,31 @@
+import 'package:ayobeli/widgets/left_drawer.dart';
 import 'package:ayobeli/widgets/shop_cart.dart';
 import 'package:flutter/material.dart';
-import 'package:ayobeli/widgets/left_drawer.dart';
 
 class MyHomePage extends StatelessWidget {
-    MyHomePage({Key? key}) : super(key: key);
-    final List<ShopItem> items = [
-    ShopItem("Lihat Item", Icons.checklist, Color.fromARGB(255, 66, 1, 44)),
-    ShopItem("Tambah Item", Icons.add_shopping_cart, Color.fromARGB(255, 147, 60, 118)),
-    ShopItem("Logout", Icons.logout, Color.fromARGB(255, 141, 69, 112)),
-];
+  MyHomePage({Key? key}) : super(key: key);
 
-    @override
-    Widget build(BuildContext context) {
-        return Scaffold(
+  final List<ShopItem> items = [
+    ShopItem("Lihat Item", Icons.checklist, Colors.indigo),
+    ShopItem("Tambah Item", Icons.add_shopping_cart, Colors.cyan),
+    ShopItem("Logout", Icons.logout, Colors.pink),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'AYOBELI',
+            'AYOBELI',
+          ),
+          backgroundColor: Colors.indigo,
+          foregroundColor: Colors.white,
         ),
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-      ),
-       // Masukkan drawer sebagai parameter nilai drawer dari widget Scaffold
-      drawer: const LeftDrawer(),
-      body: SingleChildScrollView(
-        // Widget wrapper yang dapat discroll
-        child: Padding(
+          // Masukkan drawer sebagai parameter nilai drawer dari widget Scaffold
+          drawer: const LeftDrawer(),
+          body: SingleChildScrollView(
+            // Widget wrapper yang dapat discroll
+            child: Padding(
           padding: const EdgeInsets.all(10.0), // Set padding dari halaman
           child: Column(
             // Widget untuk menampilkan children secara vertikal
@@ -41,7 +42,9 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
               ),
+              // Grid layout
               GridView.count(
+                // Container pada card kita.
                 primary: true,
                 padding: const EdgeInsets.all(20),
                 crossAxisSpacing: 10,
@@ -49,6 +52,7 @@ class MyHomePage extends StatelessWidget {
                 crossAxisCount: 3,
                 shrinkWrap: true,
                 children: items.map((ShopItem item) {
+                  // Iterasi untuk setiap item
                   return ShopCard(item);
                 }).toList(),
               ),
@@ -57,5 +61,5 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
     );
-    }
+  }
 }

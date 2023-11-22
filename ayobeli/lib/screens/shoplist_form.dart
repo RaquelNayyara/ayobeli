@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ayobeli/widgets/left_drawer.dart';
 import 'package:ayobeli/models/models.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:ayobeli/screens/menu.dart';
 
 class ShopFormPage extends StatefulWidget {
   const ShopFormPage({super.key});
@@ -29,7 +33,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Item berhasil tersimpan'),
+            title: const Text('Buku berhasil tersimpan'),
             content: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,11 +62,12 @@ class _ShopFormPageState extends State<ShopFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Form Tambah Item',
+            'Form Tambah Buku',
           ),
         ),
         backgroundColor: Colors.indigo,
@@ -79,8 +84,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Nama Item",
-                    labelText: "Nama Item",
+                    hintText: "Nama Buku",
+                    labelText: "Nama Buku",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -92,7 +97,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   },
                   validator: (String?value) {
                     if (value == null || value.isEmpty) {
-                      return "Nama item tidak boleh kosong!";
+                      return "Nama buku tidak boleh kosong!";
                     }
                     return null;
                   },
@@ -156,13 +161,50 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.indigo),
                   ),
-                  onPressed: _saveItem,
-                  child: const Text(
-                    "Save",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
+                  onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            // Kirim ke Django dan tunggu respons
+                            
+                            final response = await request.postJson(
+                                "http://127.0.0.1:8000/create-flutter/",
+                                jsonEncode(<String, String>{
+                                  'name': _name,
+                                  'price': _price.toString(),
+                                  'description': _description,
+                                  
+                                }));
+                            if (response['status'] == 'success') {
+                              if(context.mounted){
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text("Produk baru berhasil disimpan!"),
+                                ));
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyHomePage()),
+                                );
+
+                              }
+                            } else {
+                              if(context.mounted){
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                    "Terdapat kesalahan, silakan coba lagi."),
+                              ));
+
+
+                              }
+                            }
+                          }
+                        },
+                        child: const Text(
+                          "Save",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
             ),
           ]),
         ),
